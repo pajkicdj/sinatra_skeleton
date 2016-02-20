@@ -10,7 +10,61 @@ get '/messages' do   #this will show up in http://localhost:3000/message
   erb :'messages/index'   #available in messages/index.erb
 end
 
-get '/new' do
+get '/messages/new' do
+  @message = Message.new
   erb :'messages/new'
 end
+
+post '/messages' do
+  @message = Message.new(
+    title: params[:title],
+    content: params[:content],
+    author: params[:author]
+  )
+
+  if @message.save
+    redirect '/messages'
+  else
+    erb :'messages/new'
+  end
+end
+
+get '/messages/:id' do
+  @message = Message.find params[:id]
+  erb :'messages/show'
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
